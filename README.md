@@ -1,22 +1,18 @@
 # CodeAlpha_FAQ_Chatbot1
 "First internship project: FAQ Chatbot development"
-# CodeAlpha Language Translation Tool 🌍
+# CodeAlpha FAQ Chatbot 🤖
 
-This project is a Language Translation Tool developed using Python and Streamlit as part of the CodeAlpha Artificial Intelligence Internship.
-
-## 🔹 Project Overview
-The application allows users to translate text between multiple languages instantly using a translation API. It provides a simple and clean interface for real-time language translation.
+This project is a simple FAQ Chatbot developed using Python and Streamlit as part of the CodeAlpha Artificial Intelligence Internship.
 
 ## 🔹 Features
-- Translate text between multiple languages
-- User-friendly interface built with Streamlit
-- Fast and accurate translations
-- Supports popular languages like English, Arabic, French, German, Spanish, and Persian
+- Answer user questions using NLP
+- Uses cosine similarity for matching FAQs
+- Simple and clean UI with Streamlit
 
 ## 🔹 Technologies Used
 - Python
 - Streamlit
-- Googletrans API
+- Scikit-learn
 
 ## 🔹 How to Run
 ```bash
