@@ -1,40 +1,25 @@
 import streamlit as st
-from googletrans import Translator
+import json
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
-translator = Translator()
+# Load FAQs
+with open("faqs.json", "r") as f:
+    data = json.load(f)
 
-st.title("🌍 Language Translation Tool")
-st.write("Translate text between multiple languages instantly.")
+questions = [item["question"] for item in data]
+answers = [item["answer"] for item in data]
 
-languages = {
-    "English": "en",
-    "French": "fr",
-    "German": "de",
-    "Spanish": "es",
-    "Arabic": "ar",
-    "Persian": "fa",
-    "Hindi": "hi"
-}
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(questions)
 
-text = st.text_area("Enter text to translate:")
+st.title("🤖 FAQ Chatbot")
+st.write("Ask a question and I will try to help you.")
 
-col1, col2 = st.columns(2)
+user_input = st.text_input("Your Question:")
 
-with col1:
-    source_lang = st.selectbox("Source Language", list(languages.keys()))
-
-with col2:
-    target_lang = st.selectbox("Target Language", list(languages.keys()))
-
-if st.button("Translate"):
-    if text:
-        translated = translator.translate(
-            text,
-            src=languages[source_lang],
-            dest=languages[target_lang]
-        )
-        st.success("Translated Text:")
-        st.write(translated.text)
-    else:
-        st.warning("Please enter text to translate.")
-
+if user_input:
+    user_vec = vectorizer.transform([user_input])
+    similarity = cosine_similarity(user_vec, X)
+    index = similarity.argmax()
+    st.success(answers[index])
